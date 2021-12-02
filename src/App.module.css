@@ -1,0 +1,23 @@
+:global(.capHeading) {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 38px;
+  letter-spacing: -0.02em;
+}
+
+.title {
+  margin: 2rem 0;
+}
+
+.container {
+  width: 26rem;
+  margin: 2rem auto;
+}
