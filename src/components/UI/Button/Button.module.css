@@ -1,9 +1,11 @@
 .button {
   font: inherit;
   padding: 0.5rem 2rem;
+  margin-bottom: 1rem;
+  width: 100%;
   border: none;
-  border-radius: 2rem;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.26);
+  border-radius: 1rem;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   cursor: pointer;
 }
 
@@ -12,56 +14,29 @@
 }
 
 .button:active {
-  transform: scale(0.95);
+  transform: scale(0.98);
 }
 
 .button:hover,
 .button:active {
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.26);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.1) 0 0);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .button--primary {
   color: white;
-  background: brown;
+  background-color: #51a9e9;
 }
-.button--primary:hover,
-.button--primary:active {
-  background: rgb(110, 28, 28);
-}
+
 .button--secondary {
-  color: brown;
-  border: 1px solid brown;
-  background: white;
+  color: #51a9e9;
+  border: 1px solid #51a9e9;
+  background-color: white;
 }
+
 .button--secondary:hover,
 .button--secondary:active {
-  background: brown;
-  color: white;
-}
-
-.button--dark {
-  color: white;
-  background-color: rgb(110, 28, 28);
-}
-
-.button--dark:hover,
-.button--dark:active {
-  background: rgb(82, 20, 20);
-}
-
-.button--small {
-  padding: 0.2rem 1.5rem;
-}
-
-.button--square {
-  border-radius: 0.5rem;
-}
-
-.button:disabled,
-.button:disabled:hover {
-  border: 1px solid #999999;
-  color: #999999;
-  background-color: #cccccc;
-  box-shadow: none;
-  cursor: default;
+  border-width: 2px;
+  margin: -1px;
+  background-image: none;
 }
