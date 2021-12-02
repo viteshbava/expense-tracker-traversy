@@ -1,0 +1,28 @@
+.item {
+  padding: 0.5rem 2rem 0.5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+}
+
+.item:not(:last-child) {
+  margin-bottom: var(--reg-gap);
+}
+
+.item:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 1rem;
+}
+
+.item--expense:after {
+  background-color: var(--red);
+}
+
+.item--income:after {
+  background-color: var(--green);
+}

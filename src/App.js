@@ -3,25 +3,44 @@ import styles from "./App.module.css";
 import YourBalance from "./components/YourBalance/YourBalance";
 import IncomeExpenseTotals from "./components/IncomeExpenseTotals/IncomeExpenseTotals";
 import TransactionList from "./components/TransactionList/TransactionList";
-import AddEditTransaction from "./components/AddEditTransaction/AddEditTransaction";
-import Button, { COLOR, SIZE } from "./components/UI/Button/Button";
+import AddEditTransaction, {
+  ADDEDIT_ACTION,
+} from "./components/AddEditTransaction/AddEditTransaction";
+import Button, { COLOR } from "./components/UI/Button/Button";
+
+const testItem = { id: "001", description: "Batteries", amount: -9.99 };
 
 function App() {
-  const [addingOrEditing, setAddingOrEditing] = useState(false);
+  const [addingOrEditing, setAddingOrEditing] = useState(null);
 
-  const addTransactionHandler = () => {
-    setAddingOrEditing(true);
+  const addTransactionHandler = (action) => {
+    setAddingOrEditing(action);
   };
 
   let body;
   if (addingOrEditing) {
-    body = <AddEditTransaction onCancel={() => setAddingOrEditing(false)} />;
+    body = (
+      <AddEditTransaction
+        action={addingOrEditing}
+        itemToEdit={testItem}
+        onCancel={() => setAddingOrEditing(null)}
+      />
+    );
   } else {
     body = (
       <>
         <TransactionList />
-        <Button onClick={addTransactionHandler} color={COLOR.PRIMARY}>
+        <Button
+          onClick={() => addTransactionHandler(ADDEDIT_ACTION.ADD)}
+          color={COLOR.PRIMARY}
+        >
           Add Transaction
+        </Button>
+        <Button
+          onClick={() => addTransactionHandler(ADDEDIT_ACTION.EDIT)}
+          color={COLOR.PRIMARY}
+        >
+          Edit Transaction
         </Button>
       </>
     );

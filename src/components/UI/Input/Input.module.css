@@ -1,0 +1,15 @@
+.input_wrapper {
+}
+
+.input__label {
+  font-weight: bold;
+  margin-right: 1rem;
+}
+
+.input__input {
+  width: 3rem;
+  padding-left: 0.5rem;
+  border-radius: 5px;
+  border: lightgray 1px solid;
+  line-height: inherit;
+}

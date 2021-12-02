@@ -36,7 +36,5 @@
 
 .button--secondary:hover,
 .button--secondary:active {
-  border-width: 2px;
-  margin: -1px;
   background-image: none;
 }

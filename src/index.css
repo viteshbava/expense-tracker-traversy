@@ -1,3 +1,13 @@
+:root {
+  --small-gap: 0.5rem;
+  --reg-gap: 1rem;
+  --med-gap: 1.5rem;
+  --large-gap: 2rem;
+  --xlarge-gap: 2.5rem;
+  --green: #2ecc71;
+  --red: #c0392b;
+}
+
 * {
   margin: 0;
   padding: 0;

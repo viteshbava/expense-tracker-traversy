@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.container div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
+.container div:first-of-type {
+  border-right: lightgray 1px solid;
+}
+
+.container p {
+  font-size: 1.5rem;
+}
+
+.income p {
+  color: var(--green);
+}
+
+.expense p {
+  color: var(--red);
+}
