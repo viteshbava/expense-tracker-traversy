@@ -2,6 +2,8 @@ import React from "react";
 import Button, { COLOR } from "../UI/Button/Button";
 import TransactionItem from "../TransactionList/TransactionItem/TransactionItem";
 import Input from "../UI/Input/Input";
+import ToggleSwitch from "../UI/ToggleSwitch/ToggleSwitch";
+import styles from "./AddEditTransaction.module.css";
 
 const ADDEDIT_ACTION = {
   ADD: "add",
@@ -36,6 +38,7 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
     <div className={"main-component"}>
       <h2>{heading}</h2>
       {existingItem}
+      <ToggleSwitch />
       <Input
         label="Description"
         input={{
@@ -46,11 +49,12 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
         }}
       />
       <Input
+        className={styles["last-input"]}
         label="Amount"
         input={{
           type: "number",
           id: "amount",
-          step: 0.01,
+          step: 1,
           placeholder: "Enter amount ...",
           defaultValue: amount,
         }}

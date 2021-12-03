@@ -1,15 +1,23 @@
-.input_wrapper {
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
 }
 
 .input__label {
-  font-weight: bold;
-  margin-right: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .input__input {
-  width: 3rem;
-  padding-left: 0.5rem;
-  border-radius: 5px;
+  width: 100%;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.5rem;
   border: lightgray 1px solid;
   line-height: inherit;
+  font: inherit;
+}
+
+.input__input::placeholder {
+  font: inherit;
+  color: #bbbbbb;
 }
