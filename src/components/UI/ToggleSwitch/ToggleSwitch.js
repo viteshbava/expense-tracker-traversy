@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./ToggleSwitch.module.css";
 
-export default function ToggleSwitch() {
+export default function ToggleSwitch({ checked }) {
   return (
     <div className={styles.wrapper}>
       <label
-        for="toggle"
+        htmlFor="toggle"
         className={`${styles.label} ${styles["label--income"]}`}
       >
         Income
@@ -15,13 +15,13 @@ export default function ToggleSwitch() {
           id="toggle"
           className={styles.toggle}
           type="checkbox"
-          defaultChecked
+          defaultChecked={checked}
         />
         <span className={styles["toggle-knob"]}></span>
       </div>
 
       <label
-        for="toggle"
+        htmlFor="toggle"
         className={`${styles.label} ${styles["label--expense"]}`}
       >
         Expense

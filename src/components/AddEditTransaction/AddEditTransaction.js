@@ -38,7 +38,7 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
     <div className={"main-component"}>
       <h2>{heading}</h2>
       {existingItem}
-      <ToggleSwitch />
+      <ToggleSwitch checked={income} />
       <Input
         label="Description"
         input={{

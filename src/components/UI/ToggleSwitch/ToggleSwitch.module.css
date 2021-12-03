@@ -34,7 +34,7 @@
 .toggle-knob {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translate(-50%, -50%);
   height: 1.25rem;
   width: 1.25rem;
   border-radius: 50%;
@@ -45,11 +45,11 @@
 }
 
 .toggle:checked + .toggle-knob {
-  left: 15%;
+  left: 25%;
 }
 
 .toggle:not(:checked) + .toggle-knob {
-  left: calc(85% - 1.25rem);
+  left: 75%;
 }
 
 .label {
