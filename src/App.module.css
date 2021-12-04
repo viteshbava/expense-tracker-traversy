@@ -27,7 +27,7 @@ h2 {
 }
 
 .container {
-  width: 26rem;
+  width: var(--view-width);
   margin: var(--xlarge-gap) auto;
 }
 
