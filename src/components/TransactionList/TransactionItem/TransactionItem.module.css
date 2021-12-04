@@ -1,13 +1,29 @@
+.wrapper {
+  /* display: flex;
+  justify-content: flex-start; */
+  overflow-x: hidden;
+  /* width: 100vw; */
+  position: relative;
+}
+
+.wrapper:not(:last-child) {
+  margin-bottom: var(--reg-gap);
+}
+
+/* .wrapper:hover .item {
+  width: auto;
+} */
+
 .item {
   padding: 0.5rem 2rem 0.5rem 1.5rem;
   position: relative;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
-}
-
-.item:not(:last-child) {
-  margin-bottom: var(--reg-gap);
+  /* transition: all 0.5s ease-in-out; */
+  width: 100%;
+  /* width: auto; */
+  /* flex-grow: 1; */
 }
 
 .item:after {
@@ -25,4 +41,26 @@
 
 .item--income:after {
   background-color: var(--green);
+}
+
+.action {
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  align-items: center;
+  color: white;
+  display: flex;
+  cursor: pointer;
+  display: none;
+}
+
+.action--edit {
+  background-color: var(--blue);
+}
+.action--delete {
+  background-color: rgb(230, 0, 0);
+}
+
+.action * {
+  height: 1.5rem;
+  width: 1.5rem;
 }
