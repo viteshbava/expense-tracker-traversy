@@ -18,7 +18,7 @@
 }
 
 .relative-wrapper:not([readOnly]):hover .item {
-  width: calc(var(--view-width) - 6rem);
+  width: calc(var(--view-width) - 6.5rem);
 }
 
 .item {
@@ -49,8 +49,11 @@
 }
 
 .action {
+  width: auto;
+  margin: 0;
   margin-left: 0.5rem;
   padding: 0.5rem;
+  border-radius: 0.5rem;
   align-items: center;
   color: white;
   display: flex;
