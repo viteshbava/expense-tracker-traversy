@@ -23,7 +23,9 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
       break;
     case ADDEDIT_ACTION.EDIT:
       heading = "Edit Transaction";
-      existingItem = <TransactionItem key={itemToEdit.id} item={itemToEdit} />;
+      existingItem = (
+        <TransactionItem key={itemToEdit.id} item={itemToEdit} readOnly />
+      );
       description = itemToEdit.description;
       income = itemToEdit.amount >= 0 ? true : false;
       amount = itemToEdit.amount;
