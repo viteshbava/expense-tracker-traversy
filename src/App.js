@@ -21,23 +21,28 @@ function App() {
   if (addingOrEditing) {
     body = (
       <AddEditTransaction
-        action={addingOrEditing}
-        itemToEdit={testItem}
+        action={addingOrEditing.action}
+        itemToEdit={addingOrEditing.item}
         onCancel={() => setAddingOrEditing(null)}
       />
     );
   } else {
     body = (
       <>
-        <TransactionList />
+        <TransactionList onEdit={setAddingOrEditing} />
         <Button
-          onClick={() => addTransactionHandler(ADDEDIT_ACTION.ADD)}
+          onClick={() => addTransactionHandler({ action: ADDEDIT_ACTION.ADD })}
           color={COLOR.PRIMARY}
         >
           Add Transaction
         </Button>
         <Button
-          onClick={() => addTransactionHandler(ADDEDIT_ACTION.EDIT)}
+          onClick={() =>
+            addTransactionHandler({
+              action: ADDEDIT_ACTION.EDIT,
+              item: testItem,
+            })
+          }
           color={COLOR.PRIMARY}
         >
           Edit Transaction

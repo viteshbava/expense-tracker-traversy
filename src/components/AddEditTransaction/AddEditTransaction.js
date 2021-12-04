@@ -3,6 +3,7 @@ import Button, { COLOR } from "../UI/Button/Button";
 import TransactionItem from "../TransactionList/TransactionItem/TransactionItem";
 import Input from "../UI/Input/Input";
 import ToggleSwitch from "../UI/ToggleSwitch/ToggleSwitch";
+import toDollars from "../../utilities/toDollars";
 import styles from "./AddEditTransaction.module.css";
 
 const ADDEDIT_ACTION = {
@@ -28,8 +29,11 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
       );
       description = itemToEdit.description;
       income = itemToEdit.amount >= 0 ? true : false;
-      amount = itemToEdit.amount;
-      buttonLabel = "Update Transaction";
+      (amount =
+        itemToEdit.amount < 0
+          ? (itemToEdit.amount * -1).toFixed(2)
+          : itemToEdit.amount.toFixed(2)),
+        (buttonLabel = "Update Transaction");
       break;
     default:
       console.log(`Invalid action for AddEditTransaction: ${action}`);

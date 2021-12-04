@@ -2,11 +2,12 @@ import React from "react";
 import Card from "../../UI/Card/Card";
 import Button from "../../UI/Button/Button";
 import { Icon } from "@iconify/react";
+import { ADDEDIT_ACTION } from "../../../components/AddEditTransaction/AddEditTransaction";
+import toDollars from "../../../utilities/toDollars";
 import styles from "./TransactionItem.module.css";
 
-export default function TransactionItem({ item, readOnly }) {
-  const { description } = item;
-  const amount = (Math.round(item.amount * 100) / 100).toFixed(2);
+export default function TransactionItem({ item, readOnly, onEdit }) {
+  const { amount, description } = item;
   return (
     <div readOnly={readOnly} className={styles["relative-wrapper"]}>
       <div className={styles["absolute-wrapper"]}>
@@ -16,9 +17,17 @@ export default function TransactionItem({ item, readOnly }) {
           }`}
         >
           <span>{description}</span>
-          <span>{amount}</span>
+          <span>{toDollars(amount)}</span>
         </Card>
-        <Button className={`${styles.action} ${styles["action--edit"]}`}>
+        <Button
+          onClick={() =>
+            onEdit({
+              action: ADDEDIT_ACTION.EDIT,
+              item,
+            })
+          }
+          className={`${styles.action} ${styles["action--edit"]}`}
+        >
           <Icon icon="entypo:pencil" />
         </Button>
         <Button className={`${styles.action} ${styles["action--delete"]}`}>
