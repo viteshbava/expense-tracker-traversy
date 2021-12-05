@@ -6,7 +6,11 @@ const useExpensesContext = () => {
   return useContext(ExpensesContext);
 };
 
-const EXPENSES_ACTIONS = {};
+const EXPENSES_ACTIONS = {
+  ADD: "add",
+  UPDATE: "update",
+  DELETE: "delete",
+};
 
 const EXPENSES_INITIAL = {
   transactions: [
@@ -23,21 +27,22 @@ const EXPENSES_INITIAL = {
 };
 
 const reducer = (expenses, action) => {
-  // switch (action.type) {
-  //   case CART_ACTIONS.TOGGLE_DISPLAY:
-  //     // return { ...cart, display: action.payload };
-  //   case CART_ACTIONS.ADD_ITEM:
-  //     // return addItemToCart(cart, action.payload);
-  //   case CART_ACTIONS.REMOVE_ITEM:
-  //     // return removeItemFromCart(cart, action.payload);
-  //   case CART_ACTIONS.UPDATE_AMOUNT:
-  //     // return updateItemAmount(cart, action.payload);
-  //   case CART_ACTIONS.CLEAR_CART:
-  //     return EXPENSES_INITIAL;
-  //   default:
-  //     console.log(`Unknown cart action: ${action.type}`);
-  //     return cart;
-  // }
+  switch (action.type) {
+    case EXPENSES_ACTIONS.ADD:
+      const newItem = {
+        ...action.payload,
+        id: "xxx",
+      };
+      return { ...expenses, transactions: [newItem, ...expenses.transactions] };
+    case EXPENSES_ACTIONS.UPDATE:
+    // return addItemToCart(cart, action.payload);
+    case EXPENSES_ACTIONS.DELETE:
+    // return removeItemFromCart(cart, action.payload);
+
+    default:
+      console.log(`Unknown action: ${action.type}`);
+      return expenses;
+  }
 };
 
 const ExpensesContextProvider = ({ children }) => {
@@ -45,8 +50,9 @@ const ExpensesContextProvider = ({ children }) => {
   const [addingOrEditing, setAddingOrEditing] = useState(null);
 
   const setExpenses = {
-    addTransaction: () => {
+    addTransaction: (payload) => {
       console.log("add transaction");
+      dispatcher({ type: EXPENSES_ACTIONS.ADD, payload });
     },
 
     updateTransaction: () => {

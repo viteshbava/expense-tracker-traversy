@@ -20,7 +20,6 @@ function App() {
       <AddEditTransaction
         action={addingOrEditing.action}
         itemToEdit={addingOrEditing.item}
-        onCancel={() => setAddingOrEditing(null)}
       />
     );
   } else {

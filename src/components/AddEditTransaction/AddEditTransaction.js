@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import Button, { COLOR } from "../UI/Button/Button";
 import TransactionItem from "../TransactionList/TransactionItem/TransactionItem";
 import Input from "../UI/Input/Input";
 import ToggleSwitch from "../UI/ToggleSwitch/ToggleSwitch";
 import { useExpensesContext } from "../../store/expenses-context";
+import { useAddEditContext } from "../../store/addEdit-context";
 import styles from "./AddEditTransaction.module.css";
 
 const ADDEDIT_ACTION = {
@@ -11,8 +12,12 @@ const ADDEDIT_ACTION = {
   EDIT: "edit",
 };
 
-export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
+export default function AddEditTransaction({ action, itemToEdit }) {
   const { setExpenses } = useExpensesContext();
+  const { setAddingOrEditing } = useAddEditContext();
+
+  const descrRef = useRef();
+  const amountRef = useRef();
 
   let heading,
     existingItem,
@@ -30,7 +35,13 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
       income = true;
       amount = "";
       buttonLabel = "Add Transaction";
-      buttonConfirmHandler = () => setExpenses.addTransaction();
+      buttonConfirmHandler = () => {
+        setExpenses.addTransaction({
+          description: descrRef.current.value,
+          amount: amountRef.current.value,
+        });
+        setAddingOrEditing(null);
+      };
       break;
     case ADDEDIT_ACTION.EDIT:
       heading = "Edit Transaction";
@@ -59,6 +70,7 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
       <Input
         label="Description"
         input={{
+          ref: descrRef,
           type: "text",
           id: "descr",
           placeholder: "Enter description ...",
@@ -69,8 +81,10 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
         className={styles["last-input"]}
         label="Amount"
         input={{
+          ref: amountRef,
           type: "number",
           id: "amount",
+          min: 0,
           step: 1,
           placeholder: "Enter amount ...",
           defaultValue: amount,
@@ -79,7 +93,7 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
       <Button onClick={buttonConfirmHandler} color={COLOR.PRIMARY}>
         {buttonLabel}
       </Button>
-      <Button onClick={() => onCancel()} color={COLOR.SECONDARY}>
+      <Button onClick={() => setAddingOrEditing(null)} color={COLOR.SECONDARY}>
         Cancel
       </Button>
     </div>
