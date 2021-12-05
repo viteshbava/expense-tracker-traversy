@@ -31,7 +31,7 @@ const reducer = (expenses, action) => {
     case EXPENSES_ACTIONS.ADD:
       const newItem = {
         ...action.payload,
-        id: "xxx",
+        id: Math.random().toString(),
       };
       return { ...expenses, transactions: [newItem, ...expenses.transactions] };
     case EXPENSES_ACTIONS.UPDATE:
@@ -50,6 +50,8 @@ const ExpensesContextProvider = ({ children }) => {
   const [addingOrEditing, setAddingOrEditing] = useState(null);
 
   const setExpenses = {
+    getTransaction: (id) => expenses.transactions.find((t) => t.id === id),
+
     addTransaction: (payload) => {
       console.log("add transaction");
       dispatcher({ type: EXPENSES_ACTIONS.ADD, payload });

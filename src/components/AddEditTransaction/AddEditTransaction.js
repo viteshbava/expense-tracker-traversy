@@ -12,7 +12,7 @@ const ADDEDIT_ACTION = {
   EDIT: "edit",
 };
 
-export default function AddEditTransaction({ action, itemToEdit }) {
+export default function AddEditTransaction({ action, itemIdToEdit }) {
   const { setExpenses } = useExpensesContext();
   const { setAddingOrEditing } = useAddEditContext();
 
@@ -44,10 +44,9 @@ export default function AddEditTransaction({ action, itemToEdit }) {
       };
       break;
     case ADDEDIT_ACTION.EDIT:
+      const itemToEdit = setExpenses.getTransaction(itemIdToEdit);
       heading = "Edit Transaction";
-      existingItem = (
-        <TransactionItem key={itemToEdit.id} item={itemToEdit} readOnly />
-      );
+      existingItem = <TransactionItem item={itemToEdit} readOnly />;
       description = itemToEdit.description;
       income = itemToEdit.amount >= 0 ? true : false;
       (amount =

@@ -16,7 +16,7 @@ export default function TransactionItem({ item, readOnly }) {
   const editHandler = () => {
     setAddingOrEditing({
       action: ADDEDIT_ACTION.EDIT,
-      item,
+      itemIdToEdit: item.id,
     });
   };
 

@@ -19,7 +19,7 @@ function App() {
     body = (
       <AddEditTransaction
         action={addingOrEditing.action}
-        itemToEdit={addingOrEditing.item}
+        itemIdToEdit={addingOrEditing.itemIdToEdit}
       />
     );
   } else {
