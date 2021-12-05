@@ -21,9 +21,9 @@ const EXPENSES_INITIAL = {
     { id: "005", description: "Salary", amount: 60.004 },
     { id: "006", description: "Favour", amount: 0 },
   ],
-  totalBalance: 0,
-  totalIncome: 0,
-  totalExpense: 0,
+  totalBalance: 666.655,
+  totalIncome: 667.655,
+  totalExpense: 668.655,
 };
 
 const reducer = (expenses, action) => {
