@@ -3,7 +3,7 @@ import Button, { COLOR } from "../UI/Button/Button";
 import TransactionItem from "../TransactionList/TransactionItem/TransactionItem";
 import Input from "../UI/Input/Input";
 import ToggleSwitch from "../UI/ToggleSwitch/ToggleSwitch";
-import toDollars from "../../utilities/toDollars";
+import { useExpensesContext } from "../../store/expenses-context";
 import styles from "./AddEditTransaction.module.css";
 
 const ADDEDIT_ACTION = {
@@ -12,7 +12,16 @@ const ADDEDIT_ACTION = {
 };
 
 export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
-  let heading, existingItem, description, income, amount, buttonLabel;
+  const { setExpenses } = useExpensesContext();
+
+  let heading,
+    existingItem,
+    description,
+    income,
+    amount,
+    buttonLabel,
+    buttonConfirmHandler;
+
   switch (action) {
     case ADDEDIT_ACTION.ADD:
       heading = "Add New Transaction";
@@ -21,6 +30,7 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
       income = true;
       amount = "";
       buttonLabel = "Add Transaction";
+      buttonConfirmHandler = () => setExpenses.addTransaction();
       break;
     case ADDEDIT_ACTION.EDIT:
       heading = "Edit Transaction";
@@ -34,6 +44,7 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
           ? (itemToEdit.amount * -1).toFixed(2)
           : itemToEdit.amount.toFixed(2)),
         (buttonLabel = "Update Transaction");
+      buttonConfirmHandler = () => setExpenses.updateTransaction();
       break;
     default:
       console.log(`Invalid action for AddEditTransaction: ${action}`);
@@ -65,7 +76,9 @@ export default function AddEditTransaction({ action, itemToEdit, onCancel }) {
           defaultValue: amount,
         }}
       />
-      <Button color={COLOR.PRIMARY}>{buttonLabel}</Button>
+      <Button onClick={buttonConfirmHandler} color={COLOR.PRIMARY}>
+        {buttonLabel}
+      </Button>
       <Button onClick={() => onCancel()} color={COLOR.SECONDARY}>
         Cancel
       </Button>
