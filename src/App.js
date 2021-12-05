@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./App.module.css";
 import YourBalance from "./components/YourBalance/YourBalance";
 import IncomeExpenseTotals from "./components/IncomeExpenseTotals/IncomeExpenseTotals";
@@ -7,15 +7,12 @@ import AddEditTransaction, {
   ADDEDIT_ACTION,
 } from "./components/AddEditTransaction/AddEditTransaction";
 import ExpensesContextProvider from "./store/expenses-context";
+import { useAddEditContext } from "./store/addEdit-context";
 import Button, { COLOR } from "./components/UI/Button/Button";
 
 function App() {
   console.log("App render");
-  const [addingOrEditing, setAddingOrEditing] = useState(null);
-
-  const addTransactionHandler = (action) => {
-    setAddingOrEditing(action);
-  };
+  const { addingOrEditing, setAddingOrEditing } = useAddEditContext();
 
   let body;
   if (addingOrEditing) {
@@ -29,9 +26,9 @@ function App() {
   } else {
     body = (
       <>
-        <TransactionList onActionClick={setAddingOrEditing} />
+        <TransactionList />
         <Button
-          onClick={() => addTransactionHandler({ action: ADDEDIT_ACTION.ADD })}
+          onClick={() => setAddingOrEditing({ action: ADDEDIT_ACTION.ADD })}
           color={COLOR.PRIMARY}
         >
           Add Transaction

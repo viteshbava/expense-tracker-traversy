@@ -4,15 +4,17 @@ import Button from "../../UI/Button/Button";
 import { Icon } from "@iconify/react";
 import { ADDEDIT_ACTION } from "../../../components/AddEditTransaction/AddEditTransaction";
 import { useExpensesContext } from "../../../store/expenses-context";
+import { useAddEditContext } from "../../../store/addEdit-context";
 import toDollars from "../../../utilities/toDollars";
 import styles from "./TransactionItem.module.css";
 
-export default function TransactionItem({ item, readOnly, onActionClick }) {
+export default function TransactionItem({ item, readOnly }) {
   const { setExpenses } = useExpensesContext();
+  const { setAddingOrEditing } = useAddEditContext();
   const { amount, description } = item;
 
   const editHandler = () => {
-    onActionClick({
+    setAddingOrEditing({
       action: ADDEDIT_ACTION.EDIT,
       item,
     });
@@ -20,7 +22,7 @@ export default function TransactionItem({ item, readOnly, onActionClick }) {
 
   const deleteHandler = () => {
     setExpenses.deleteTransaction();
-    onActionClick(null);
+    setAddingOrEditing(null);
   };
 
   return (

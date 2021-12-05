@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useReducer, useState } from "react";
 
 const ExpensesContext = React.createContext();
 
@@ -42,6 +42,7 @@ const reducer = (expenses, action) => {
 
 const ExpensesContextProvider = ({ children }) => {
   const [expenses, dispatcher] = useReducer(reducer, EXPENSES_INITIAL);
+  const [addingOrEditing, setAddingOrEditing] = useState(null);
 
   const setExpenses = {
     addTransaction: () => {
@@ -58,7 +59,9 @@ const ExpensesContextProvider = ({ children }) => {
   };
 
   return (
-    <ExpensesContext.Provider value={{ expenses, setExpenses }}>
+    <ExpensesContext.Provider
+      value={{ expenses, setExpenses, addingOrEditing, setAddingOrEditing }}
+    >
       {children}
     </ExpensesContext.Provider>
   );

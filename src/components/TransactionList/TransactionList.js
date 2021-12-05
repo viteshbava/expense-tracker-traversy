@@ -11,13 +11,13 @@ import { useExpensesContext } from "../../store/expenses-context";
 //   { id: "006", description: "Favour", amount: 0 },
 // ];
 
-export default function TransactionList({ onActionClick }) {
+export default function TransactionList() {
   const { expenses } = useExpensesContext();
 
   console.log(expenses);
 
   const content = expenses.transactions.map((t) => (
-    <TransactionItem key={t.id} item={t} onActionClick={onActionClick} />
+    <TransactionItem key={t.id} item={t} />
   ));
 
   return (
