@@ -35,7 +35,23 @@ const reducer = (expenses, action) => {
       };
       return { ...expenses, transactions: [newItem, ...expenses.transactions] };
     case EXPENSES_ACTIONS.UPDATE:
-    // return addItemToCart(cart, action.payload);
+      const index = expenses.transactions.findIndex(
+        (i) => i.id === action.payload.id
+      );
+      const existingItem = expenses.transactions[index];
+
+      const updatedItem = {
+        ...existingItem,
+        description: action.payload.description,
+        amount: action.payload.amount,
+      };
+      const updatedItems = [...expenses.transactions];
+      updatedItems[index] = updatedItem;
+      return {
+        ...expenses,
+        transactions: updatedItems,
+      };
+
     case EXPENSES_ACTIONS.DELETE:
     // return removeItemFromCart(cart, action.payload);
 
@@ -61,8 +77,14 @@ const ExpensesContextProvider = ({ children }) => {
       dispatcher({ type: EXPENSES_ACTIONS.ADD, payload });
     },
 
-    updateTransaction: () => {
+    updateTransaction: ({ id, description, amount, isIncome }) => {
       console.log("update transaction");
+      const payload = {
+        id,
+        description,
+        amount: isIncome ? parseFloat(amount) : parseFloat(amount) * -1,
+      };
+      dispatcher({ type: EXPENSES_ACTIONS.UPDATE, payload });
     },
 
     deleteTransaction: () => {

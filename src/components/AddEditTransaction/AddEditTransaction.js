@@ -56,7 +56,15 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
           ? (itemToEdit.amount * -1).toFixed(2)
           : itemToEdit.amount.toFixed(2)),
         (buttonLabel = "Update Transaction");
-      buttonConfirmHandler = () => setExpenses.updateTransaction();
+      buttonConfirmHandler = () => {
+        setExpenses.updateTransaction({
+          id: itemIdToEdit,
+          description: descrRef.current.value,
+          amount: amountRef.current.value,
+          isIncome: incomeExpenseRef.current.checked,
+        });
+        setAddingOrEditing(null);
+      };
       break;
     default:
       console.log(`Invalid action for AddEditTransaction: ${action}`);
