@@ -11,17 +11,17 @@ import styles from "./TransactionItem.module.css";
 export default function TransactionItem({ item, readOnly }) {
   const { setExpenses } = useExpensesContext();
   const { setAddingOrEditing } = useAddEditContext();
-  const { amount, description } = item;
+  const { id, amount, description } = item;
 
   const editHandler = () => {
     setAddingOrEditing({
       action: ADDEDIT_ACTION.EDIT,
-      itemIdToEdit: item.id,
+      itemIdToEdit: id,
     });
   };
 
   const deleteHandler = () => {
-    setExpenses.deleteTransaction();
+    setExpenses.deleteTransaction(id);
     setAddingOrEditing(null);
   };
 
