@@ -52,8 +52,12 @@ const ExpensesContextProvider = ({ children }) => {
   const setExpenses = {
     getTransaction: (id) => expenses.transactions.find((t) => t.id === id),
 
-    addTransaction: (payload) => {
+    addTransaction: ({ description, amount, isIncome }) => {
       console.log("add transaction");
+      const payload = {
+        description,
+        amount: isIncome ? parseFloat(amount) : parseFloat(amount) * -1,
+      };
       dispatcher({ type: EXPENSES_ACTIONS.ADD, payload });
     },
 

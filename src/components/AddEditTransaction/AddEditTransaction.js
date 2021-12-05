@@ -18,6 +18,7 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
 
   const descrRef = useRef();
   const amountRef = useRef();
+  const incomeExpenseRef = useRef();
 
   let heading,
     existingItem,
@@ -39,6 +40,7 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
         setExpenses.addTransaction({
           description: descrRef.current.value,
           amount: amountRef.current.value,
+          isIncome: incomeExpenseRef.current.checked,
         });
         setAddingOrEditing(null);
       };
@@ -65,7 +67,7 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
     <div className={"main-component"}>
       <h2>{heading}</h2>
       {existingItem}
-      <ToggleSwitch checked={income} />
+      <ToggleSwitch incomeExpenseRef={incomeExpenseRef} checked={income} />
       <Input
         label="Description"
         input={{

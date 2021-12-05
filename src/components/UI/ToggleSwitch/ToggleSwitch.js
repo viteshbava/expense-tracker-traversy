@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ToggleSwitch.module.css";
 
-export default function ToggleSwitch({ checked }) {
+export default function ToggleSwitch({ incomeExpenseRef, checked }) {
   return (
     <div className={styles.wrapper}>
       <label
@@ -12,6 +12,7 @@ export default function ToggleSwitch({ checked }) {
       </label>
       <div className={styles["toggle-container"]}>
         <input
+          ref={incomeExpenseRef}
           id="toggle"
           className={styles.toggle}
           type="checkbox"
