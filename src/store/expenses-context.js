@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useReducer, useState, useEffect } from "react";
 
 const ExpensesContext = React.createContext();
 
@@ -68,6 +68,8 @@ const reducer = (expenses, action) => {
 const ExpensesContextProvider = ({ children }) => {
   const [expenses, dispatcher] = useReducer(reducer, EXPENSES_INITIAL);
   const [addingOrEditing, setAddingOrEditing] = useState(null);
+
+  useEffect(() => {}, []);
 
   const setExpenses = {
     getTransaction: (id) => expenses.transactions.find((t) => t.id === id),

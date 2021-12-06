@@ -17,7 +17,32 @@
   font: inherit;
 }
 
+.input__input:focus {
+  box-shadow: 0px 0px 9px 2px lightgray;
+  outline: none;
+}
+
 .input__input::placeholder {
   font: inherit;
   color: #bbbbbb;
+}
+
+.input-wrapper--valid .input__input {
+  border-color: var(--green);
+}
+.input-wrapper--valid .input__input:focus {
+  box-shadow: 0px 0px 18px -5px var(--green);
+}
+.input-wrapper--invalid .input__input {
+  border-color: red;
+}
+.input-wrapper--invalid .input__input:focus {
+  box-shadow: 0px 0px 18px -5px red;
+}
+
+.input__feedback--valid {
+  color: var(--green);
+}
+.input__feedback--invalid {
+  color: red;
 }

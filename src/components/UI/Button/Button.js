@@ -14,12 +14,13 @@ export default function Button({
   color = COLOR.PRIMARY,
   onClick,
   children,
+  type,
 }) {
   let btnStyles = styles.button;
   if (color) btnStyles = `${btnStyles} ${styles[`button--${color}`]}`;
   if (className) btnStyles = `${btnStyles} ${className}`;
   return (
-    <button className={btnStyles} onClick={onClick}>
+    <button type={type} className={btnStyles} onClick={onClick}>
       {children}
     </button>
   );
