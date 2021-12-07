@@ -26,7 +26,7 @@ export default function TransactionItem({ item, readOnly }) {
   };
 
   return (
-    <div readOnly={readOnly} className={styles["relative-wrapper"]}>
+    <li readOnly={readOnly} className={styles["relative-wrapper"]}>
       <div className={styles["absolute-wrapper"]}>
         <Card
           className={`${styles.item} ${
@@ -49,6 +49,6 @@ export default function TransactionItem({ item, readOnly }) {
           <Icon icon="bi:trash-fill" />
         </Button>
       </div>
-    </div>
+    </li>
   );
 }

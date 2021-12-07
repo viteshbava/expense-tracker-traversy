@@ -21,11 +21,9 @@ const EXPENSES_INITIAL = {
     { id: "005", description: "Salary", amount: 60.004 },
     { id: "006", description: "Favour", amount: 0 },
   ],
-  totalBalance: 666.655,
-  totalIncome: 667.655,
-  totalExpense: 668.655,
 };
 
+// this should probably be in a separate file
 const reducer = (expenses, action) => {
   switch (action.type) {
     case EXPENSES_ACTIONS.ADD:
@@ -55,9 +53,9 @@ const reducer = (expenses, action) => {
     case EXPENSES_ACTIONS.DELETE:
       return {
         ...expenses,
-        transactions: [
-          ...expenses.transactions.filter((t) => t.id !== action.payload.id),
-        ],
+        transactions: expenses.transactions.filter(
+          (t) => t.id !== action.payload.id
+        ),
       };
     default:
       console.log(`Unknown action: ${action.type}`);

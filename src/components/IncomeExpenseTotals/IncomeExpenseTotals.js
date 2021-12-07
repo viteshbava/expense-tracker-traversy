@@ -5,7 +5,14 @@ import { useExpensesContext } from "../../store/expenses-context";
 import toDollars from "../../utilities/toDollars";
 
 export default function IncomeExpenseTotals() {
-  const { totalIncome, totalExpense } = useExpensesContext().expenses;
+  const totalIncome = useExpensesContext()
+    .expenses.transactions.filter((t) => t.amount > 0)
+    .reduce((total, t) => total + t.amount, 0);
+  const totalExpense =
+    useExpensesContext()
+      .expenses.transactions.filter((t) => t.amount < 0)
+      .reduce((total, t) => total + t.amount, 0) * -1;
+
   return (
     <Card className={`${styles.container} main-component`}>
       <div className={styles.income}>

@@ -15,6 +15,7 @@ const ADDEDIT_ACTION = {
 const FORMFIELDS_ACTION = {
   UPDATE_DESCR: "updatedescr",
   UPDATE_AMOUNT: "updateamount",
+  REFRESH_ERRORS: "refresherrors",
 };
 
 const reducer = (formFields, action) => {
@@ -33,6 +34,18 @@ const reducer = (formFields, action) => {
         amount: {
           value: action.payload.value,
           errors: validateAmount(action.payload.value),
+        },
+      };
+    case FORMFIELDS_ACTION.REFRESH_ERRORS:
+      return {
+        ...formFields,
+        description: {
+          ...formFields.description,
+          errors: validateDescr(formFields.description.value),
+        },
+        amount: {
+          ...formFields.amount,
+          errors: validateAmount(formFields.amount.value),
         },
       };
     default:
@@ -58,27 +71,21 @@ const validateAmount = (amount) => {
   if (!amount.length) errors.push("Amount must be entered.");
   if (parseFloat(amount) < 0)
     errors.push(
-      "Amount must not be negative. Please change transaction to an Expense instead."
+      "Amount must not be negative. Please ensure transaction is an Expense instead."
     );
   if (amount.includes("13")) errors.push("Amount must not include 13.");
   return errors;
 };
 
 export default function AddEditTransaction({ action, itemIdToEdit }) {
+  console.log("Add/Edit component render");
   const [doValidation, setDoValidation] = useState(false);
   const { setExpenses } = useExpensesContext();
   const { setAddingOrEditing } = useAddEditContext();
 
   const incomeExpenseRef = useRef();
 
-  let heading,
-    existingItem,
-    description,
-    income,
-    amount,
-    buttonLabel,
-    submitHandler,
-    FORMFIELDS_INITIAL;
+  let heading, existingItem, income, buttonLabel, FORMFIELDS_INITIAL;
 
   switch (action) {
     case ADDEDIT_ACTION.ADD:
@@ -95,7 +102,6 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
         },
       };
       income = true;
-      amount = "";
       buttonLabel = "Add Transaction";
       break;
     case ADDEDIT_ACTION.EDIT:
@@ -117,7 +123,6 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
           errors: [],
         },
       };
-
       break;
     default:
       console.log(`Invalid action for AddEditTransaction: ${action}`);
@@ -133,18 +138,9 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
   // Initialize errors (if any)
   useEffect(() => {
     dispatcher({
-      type: FORMFIELDS_ACTION.UPDATE_DESCR,
-      payload: { value: "" },
-    });
-    dispatcher({
-      type: FORMFIELDS_ACTION.UPDATE_AMOUNT,
-      payload: { value: "" },
+      type: FORMFIELDS_ACTION.REFRESH_ERRORS,
     });
   }, []);
-
-  console.log(formFields);
-  console.log("doValidation", doValidation);
-  console.log("errors", errors);
 
   const descriptionChangeHandler = (e) => {
     dispatcher({
@@ -159,30 +155,30 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
     });
   };
 
-  submitHandler = (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     if (!errors) {
-      setExpenses.addTransaction({
+      const data = {
         description: formFields.description.value,
         amount: formFields.amount.value,
         isIncome: incomeExpenseRef.current.checked,
-      });
+      };
+      switch (action) {
+        case ADDEDIT_ACTION.ADD:
+          setExpenses.addTransaction(data);
+          break;
+        case ADDEDIT_ACTION.EDIT:
+          setExpenses.updateTransaction({ id: itemIdToEdit, ...data });
+          break;
+        default:
+          console.log(`Invalid action for AddEditTransaction: ${action}`);
+          return;
+      }
       setAddingOrEditing(null);
     } else {
       setDoValidation(true);
     }
   };
-
-  // editSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   setExpenses.updateTransaction({
-  //     id: itemIdToEdit,
-  //     description: descrRef.current.value,
-  //     amount: amountRef.current.value,
-  //     isIncome: incomeExpenseRef.current.checked,
-  //   });
-  //   setAddingOrEditing(null);
-  // };
 
   return (
     <form className={"main-component"} onSubmit={submitHandler}>
@@ -220,8 +216,7 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
         input={{
           type: "number",
           id: "amount",
-          min: 0,
-          step: 1,
+          step: 0.01,
           placeholder: "Enter amount ...",
           value: formFields.amount.value,
           onChange: amountChangeHandler,
