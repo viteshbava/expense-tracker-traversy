@@ -126,7 +126,7 @@ export default function AddEditTransaction({ action, itemIdToEdit }) {
       break;
     default:
       console.log(`Invalid action for AddEditTransaction: ${action}`);
-      return;
+    // return;
   }
 
   const [formFields, dispatcher] = useReducer(reducer, FORMFIELDS_INITIAL);
