@@ -38,7 +38,7 @@ function App() {
 
   return (
     <ExpensesContextProvider>
-      <h1 className={styles.title}>Expense Tracker</h1>
+      <h1 className={styles.title}>Expense Tracker!</h1>
       <div className={styles.container}>
         <YourBalance />
         <IncomeExpenseTotals />
